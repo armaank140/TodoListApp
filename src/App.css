@@ -79,12 +79,23 @@ body {
   max-height: 300px;
   overflow-y: auto;
 }
+.ErrorMsg{
+   
+    color: #ba3939;
+    background: #ffe0e0;
+    display: block;
+    width: 100%;
+    text-align: center; 
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+}
+
 .todoList li {
   position: relative;
   list-style: none;
   height: 45px;
   line-height: 45px;
   margin-bottom: 8px;
+  margin-top: 8px;
   background: #f2f2f2;
   border-radius: 3px;
   padding: 0 15px;
@@ -95,7 +106,7 @@ body {
 .del-btn {
   background-color: #e30c8d;
   position: absolute;
-  right: 7px;
+  right: 3px;
   background: #e74c3c;
   width: 63px;
   text-align: center;

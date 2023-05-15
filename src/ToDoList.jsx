@@ -12,7 +12,7 @@ export default function ToDoList(props) {
             props.onSelect(props.id);
           }}
         >
-          <i class="fa-solid fa-trash" />
+          <i className="fa-solid fa-trash" />
         </button>
       </li>
     </>

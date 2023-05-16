@@ -1,12 +1,21 @@
 import { useState } from "react";
 import "./App.css";
 import ToDoList from "./ToDoList";
+import { useEffect } from "react";
+
+const getLocalStorage = () => {
+  let List = localStorage.getItem("List");
+  if (List) {
+    return JSON.parse(localStorage.getItem("List"));
+  } else {
+    return [];
+  }
+};
 
 function App() {
   const [inputText, setInputText] = useState("");
-  const [Items, setItems] = useState([]);
-  const [errormsg, setErrorMsg] = useState("");
-  // const [LocalData, setLocalData] =useState([]);
+  const [Items, setItems] = useState(getLocalStorage);
+  const [ErrorMsg, setErrorMsg] = useState("");
 
   const itemEvent = (event) => {
     setInputText(event.target.value);
@@ -20,13 +29,6 @@ function App() {
         return [...oldItems, inputText];
       });
 
-      // localStorage.setItem("todoData", JSON.stringify(Items));
-
-      // const LocalArrayData = localStorage.getItem('todoData');
-      // const parseLAD = JSON.parse(LocalArrayData);
-      // console.log(parseLAD);
-      // setLocalData(parseLAD);
-
       setInputText("");
       setErrorMsg("");
     }
@@ -38,13 +40,31 @@ function App() {
         return Index !== id;
       });
     });
+    setErrorMsg("Item Deleted");
+    setInterval(() => {
+      setErrorMsg("");
+    }, 1000);
   };
+
+  const ClearList = () => {
+    // setErrorMsg('All Data Clear');
+    if (Items == 0) {
+      setErrorMsg("Add your ToDo!");
+    } else {
+      setItems([]);
+    }
+  };
+
+  useEffect(() => {
+    localStorage.setItem("List", JSON.stringify(Items));
+  }, [Items]);
 
   return (
     <>
       <div className="wrapper">
         <h1>Todo App</h1>
-        {/* {LocalData} */}
+        <span className="ErrorMsg">{ErrorMsg} </span>
+
         <div className="inputField">
           <input
             type="text"
@@ -57,7 +77,6 @@ function App() {
             +
           </button>
         </div>
-        <span className="ErrorMsg">{errormsg} </span>
 
         <ul className="todoList">
           {/* <li>{inputText}</li> */}
@@ -72,6 +91,9 @@ function App() {
             );
           })}
         </ul>
+        <button type="button" className="Clr-Button" onClick={ClearList}>
+          Clear List
+        </button>
       </div>
     </>
   );
